@@ -16,4 +16,4 @@ jobs:
       - name: Run ansible-lint
         uses: ansible-community/ansible-lint-action@main
         with:
-          path: "playbooks/"
+          path: "ansible/playbooks/"
