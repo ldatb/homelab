@@ -44,13 +44,7 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 I recommend at least 8 GB RAM for this. -> [COMPLETE] <-
 
 ## Setup
-Use the `make` command to build the home lab.
-```
-make cumulus
-```
-```
-make
-```
+TBD
 
 ## Tech Stack
 <table>
