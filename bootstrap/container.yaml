@@ -1,0 +1,13 @@
+---
+- name: Containers - Docker and Kubernetes
+  hosts: localhost
+  connection: local
+  
+  tasks:
+  - name: Install Docker
+    become: true
+    
+
+  - name: Install Kubernetes
+
+  - name: Install Helm

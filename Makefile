@@ -2,14 +2,13 @@
 .PHONY: *
 .EXPORT_ALL_VARIABLES:
 
-default: configure
+default: configure bootstrap
 
+# Update and install packages. Install Ansible
 configure:
 	./scripts/pre-setup
 	ansible --version
 
-metal:
-# Install QEMU/KVM, Helm, Docker
-
+# Install Docker, Kubernetes, QEMU/KVM, Helm
 bootstrap:
-# Prepare environment
+	make -C bootstrap
