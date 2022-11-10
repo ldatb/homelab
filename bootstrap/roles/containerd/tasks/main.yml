@@ -65,8 +65,3 @@
   file:
     path: /tmp/containerd_config.toml
     state: absent
-
-- name: Fix cricl error
-  template:
-    src: critcl-yaml.j2
-    dest: "/etc/crictl.yaml"
