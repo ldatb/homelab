@@ -1,0 +1,81 @@
+- name: Update & Upgrade packages
+  apt:
+    upgrade: yes
+    update-cache: yes
+ 
+- name: Disable swap
+  command: swapoff -a
+
+- name: Add Kubernetes GPG keys
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+ 
+- name: Add Kubernetes repository into sources list
+  apt_repository:
+    filename: kubernetes.list
+    repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    state: present
+
+- name: Allow br_netfilter module to load into kubernetes
+  template:
+    src: modules-k8s-conf.j2
+    dest: "/etc/modules-load.d/k8s.conf"
+
+- name: Create IPv4 and IPv6 configs for Kubernetes
+  template:
+    src: sysctl-k8s-conf.j2
+    dest: "/etc/sysctl.d/k8s.conf"
+
+- name: Install Kubernetes
+  apt:
+    name:
+    - kubelet=1.22.2-00
+    - kubeadm=1.22.2-00
+    - kubectl=1.22.2-00
+    state: present
+    update-cache: yes
+
+- name: Prevent Kubernetes packages from being upgraded
+  dpkg_selections:
+    name:
+    - kubelet
+    - kubeadm
+    - kubectl
+    selection: hold
+
+- name: Update Kubelet config
+  template:
+    src: kubelet-config-yaml.j2
+    dest: "/var/lib/kubelet/config.yaml"
+
+- name: Restart Kubelet
+  service:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted
+
+- name: Create Cluster
+  command: kubeadm init --cri-socket /var/run/containerd/containerd.sock --service-cidr 10.22.0.0/16 --pod-network-cidr 10.23.0.0/16
+
+- name: Give kubectl rights to another user than root - Create directory
+  command: mkdir -p $HOME/.kube
+
+- name: Give kubectl rights to another user than root - Copy config files
+  command: cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  become: true
+  become_user: root
+
+- name: Give kubectl rights to another user than root - Change permissions
+  command: chown $(id -u):$(id -g) $HOME/.kube/config
+  become: true
+  become_user: root
+
+- name: Export kubeconfig for root user
+  command: export KUBECONFIG=/etc/kubernetes/admin.conf
+
+- name: Untaint nodes - Master
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-
+
+- name: Untaint nodes - Control-plane
+  command: kubectl taint nodes --all node-role.kubernetes.io/control-plane-

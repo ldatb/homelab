@@ -1,6 +1,6 @@
 .POSIX:
 
-default: container hypervisor
+default: containers hypervisor
 
-container:
-	ansible-playbook container.yaml
+containers:
+	ansible-playbook containers.yml

@@ -1,0 +1,10 @@
+---
+- name: Install containers services
+  hosts: cumulus
+  become: yes
+  gather_facts: yes
+  roles:
+  - docker
+  - containerd
+  - kubernetes
+  - k8s-extras
