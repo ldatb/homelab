@@ -20,10 +20,10 @@
 The project contains a set of helm charts and ansible playbooks used to setup (and manage) a personal homelab infrastructure. I don't use anything critical on it, only for learning, development and fun purposes.
 
 ## Features
+* [ ] Automated bare metal provisioning with PXE boot
 * [ ] Automated Kubernetes installation and management
-* [ ] Installing and management of applications
+* [ ] Installing and management of applications with GitOps
 * [ ] Modular architecture
-* [ ] Automatic rolling update of OS and Kubernetes
 * [ ] Automated certificate management
 * [ ] Expose services to the internet via CloudFlare and Route 53
 * [ ] Hypervisor to create custom VMs
