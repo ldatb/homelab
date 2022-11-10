@@ -18,5 +18,3 @@
   shell: kubectl get pods -n calico-system -o json
   register: calico_pods
   until: calico_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
-
-- name: Install Kubernetes metrics server
