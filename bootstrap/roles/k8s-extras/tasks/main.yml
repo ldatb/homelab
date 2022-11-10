@@ -19,6 +19,24 @@
   register: calico_pods
   until: calico_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
 
+- name: Add Helm GPG keys
+  apt_key:
+    url: "https://baltocdn.com/helm/signing.asc"
+    state: present
+
+- name: Add Helm repository into sources list
+  apt_repository:
+    filename: helm
+    repo: "deb [arch={{ ansible_architecture }}] https://baltocdn.com/helm/stable/{{ ansible_distribution | lower }}/ all main"
+    state: present
+
+- name: Install Helm
+  apt:
+    name:
+    - helm
+    state: present
+    update-cache: yes
+
 - name: Create custom K8s metrics resources file
   template:
     src: k8s-metrics-components-yaml.j2
