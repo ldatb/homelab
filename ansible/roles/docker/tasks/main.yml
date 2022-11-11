@@ -22,3 +22,8 @@
   service:
     name: docker
     state: started
+
+- name: Give Docker rights to user
+  user:
+    name: "{{ std_username }}"
+    group: docker
