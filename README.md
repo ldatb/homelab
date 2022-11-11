@@ -44,7 +44,9 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 I recommend at least 8 GB RAM for this. -> [COMPLETE] <-
 
 ## Setup
-TBD
+```
+ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory
+```
 
 ## Tech Stack
 <table>
