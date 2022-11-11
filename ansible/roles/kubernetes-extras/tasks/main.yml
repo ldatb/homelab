@@ -1,41 +1,8 @@
-- name: Create Calico resources - Tigera Operator
-  command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
-  
-- name: Create custom calico resources file
-  template:
-    src: calico-custom-resource-yaml.j2
-    dest: "~/calico-custom-resource.yaml"
-
-- name: Create Calico resources - Custom resources
-  command: kubectl create -f ~/calico-custom-resource.yaml
-
-- name: Delete Calico custom resources file
-  file:
-    path: ~/calico-custom-resource.yaml
-    state: absent
-
-- name: Wait for Calico pods to come up
-  shell: kubectl get pods -n calico-system -o json
-  register: calico_pods
-  until: calico_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
-
-- name: Add Helm GPG keys
-  apt_key:
-    url: "https://baltocdn.com/helm/signing.asc"
-    state: present
-
-- name: Add Helm repository into sources list
-  apt_repository:
-    filename: helm
-    repo: "deb [arch={{ ansible_architecture }}] https://baltocdn.com/helm/stable/{{ ansible_distribution | lower }}/ all main"
-    state: present
+#- name: Install Calico
+#  include_tasks: calico.yml
 
 - name: Install Helm
-  apt:
-    name:
-    - helm
-    state: present
-    update-cache: yes
+  include_tasks: helm.yml
 
 - name: Create custom K8s metrics resources file
   template:
