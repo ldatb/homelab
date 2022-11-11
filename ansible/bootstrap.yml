@@ -1,5 +1,5 @@
 ---
-- name: Install containers services
+- name: Bootstrap Cumulus
   hosts: cumulus
   become: yes
   gather_facts: yes
