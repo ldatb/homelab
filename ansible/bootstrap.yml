@@ -4,6 +4,7 @@
   become: yes
   gather_facts: yes
   roles:
+  - dependencies
   - qemu-kvm
   - docker
   - containerd

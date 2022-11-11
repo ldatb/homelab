@@ -1,0 +1,19 @@
+- name: Update & Upgrade packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    name:
+      - curl
+      - ca-certificates
+      - apt-transport-https
+      - gnupg
+      - lsb-release
+      - software-properties-common
+      - python
+      - python3
+      - python3-pip
+    state: present
+    update-cache: yes
