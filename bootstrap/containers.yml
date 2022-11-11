@@ -4,7 +4,8 @@
   become: yes
   gather_facts: yes
   roles:
+  - qemu-kvm
   - docker
   - containerd
   - kubernetes
-  - k8s-extras
+  - kubernetes-extras
