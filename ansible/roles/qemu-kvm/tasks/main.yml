@@ -4,8 +4,8 @@
       - qemu-kvm
       - libvirt-daemon-system
       - libvirt-clients
-      - python-libvirt
-      - python-lxml
+      - python3-libvirt
+      - python3-lxml
       - bridge-utils
       - cloud-image-utils
       - virtinst
@@ -33,6 +33,11 @@
     chdir: /virt/images
     cmd: qemu-img convert -f raw -O qcow2 debian-11-genericcloud-amd64.raw debian-11-genericcloud-amd64.qcow2
     creates: /virt/images/debian-11-genericcloud-amd64.qcow2
+
+- name: Remove Debian RAW image
+  file:
+    state: absent
+    path: /virt/images/debian-11-genericcloud-amd64.raw
 
 - name: Create VMs directory
   file:
