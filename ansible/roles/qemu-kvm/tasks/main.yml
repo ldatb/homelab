@@ -25,19 +25,8 @@
 
 - name: Get Debian cloud image
   get_url:
-    url: https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.raw
-    dest: /virt/images/debian-11-genericcloud-amd64.raw
-
-- name: Convert Debian RAW image to QCOW2
-  shell:
-    chdir: /virt/images
-    cmd: qemu-img convert -f raw -O qcow2 debian-11-genericcloud-amd64.raw debian-11-genericcloud-amd64.qcow2
-    creates: /virt/images/debian-11-genericcloud-amd64.qcow2
-
-- name: Remove Debian RAW image
-  file:
-    state: absent
-    path: /virt/images/debian-11-genericcloud-amd64.raw
+    url: https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2
+    dest: /virt/images/debian-11-genericcloud-amd64.qcow2
 
 - name: Create VMs directory
   file:
