@@ -19,6 +19,6 @@ resource "aws_instance" "cumulus-test" {
   instance_type = "t2.large"
   key_name = "keypair-lucas-inspiron7572"
   tags = {
-    Name = "Cumulus-Testing"
+    Name = "Cumulus-test"
   }
 }
