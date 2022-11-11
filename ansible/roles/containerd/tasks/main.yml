@@ -14,11 +14,14 @@
     src: containerd_conf.j2
     dest: "/etc/modules-load.d/containerd.conf"
 
-- name: Probe containerd modules
+- name: Modprobe overlay module
   modprobe:
-    name:
-    - overlay
-    - br_netfilter
+    name: overlay
+    state: present
+
+- name: Modprobe br_netfilter module
+  modprobe:
+    name: br_netfilter
     state: present
 
 - name: Add network configs for containerd
@@ -52,16 +55,20 @@
     path: /tmp/containerd_config.toml
     state: absent
     line: '            SystemdCgroup = false'
-  notify: restart containerd
 
 - name: Copy config.toml to /etc/containerd
   copy:
     remote_src: true
     src: /tmp/containerd_config.toml
     dest: /etc/containerd/config.toml
-  notify: restart containerd
 
 - name: Cleanup temporary file
   file:
     path: /tmp/containerd_config.toml
     state: absent
+
+- name: Restart containerd
+  service:
+    name: containerd
+    daemon_reload: yes
+    state: restarted
