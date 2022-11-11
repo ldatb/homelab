@@ -1,8 +1,3 @@
-- name: Update & Upgrade packages
-  apt:
-    upgrade: yes
-    update-cache: yes
- 
 - name: Disable swap
   command: swapoff -a
 
@@ -38,11 +33,15 @@
 
 - name: Prevent Kubernetes packages from being upgraded
   dpkg_selections:
-    name:
+    name: "{{ item }}"
+    selection: hold
+  loop:
     - kubelet
     - kubeadm
     - kubectl
-    selection: hold
+
+- name: Create Cluster
+  command: kubeadm init --cri-socket /var/run/containerd/containerd.sock --service-cidr 10.22.0.0/16 --pod-network-cidr 10.23.0.0/16
 
 - name: Update Kubelet config
   template:
@@ -55,27 +54,24 @@
     daemon_reload: yes
     state: restarted
 
-- name: Create Cluster
-  command: kubeadm init --cri-socket /var/run/containerd/containerd.sock --service-cidr 10.22.0.0/16 --pod-network-cidr 10.23.0.0/16
-
 - name: Give kubectl rights to another user than root - Create directory
-  command: mkdir -p $HOME/.kube
+  file:
+    path: .kube
+    state: directory
+  become: true
+  become_user: "{{ std_username }}"
 
 - name: Give kubectl rights to another user than root - Copy config files
-  command: cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  become: true
-  become_user: root
-
-- name: Give kubectl rights to another user than root - Change permissions
-  command: chown $(id -u):$(id -g) $HOME/.kube/config
-  become: true
-  become_user: root
-
-- name: Export kubeconfig for root user
-  command: export KUBECONFIG=/etc/kubernetes/admin.conf
+  copy:
+    remote_src: yes
+    src: /etc/kubernetes/admin.conf
+    dest: .kube/config
+    owner: "{{ std_username }}"
+    group: "{{ std_username }}"
+    mode: 0755
 
 - name: Untaint nodes - Master
   command: kubectl taint nodes --all node-role.kubernetes.io/master-
 
-- name: Untaint nodes - Control-plane
-  command: kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+- name: Untaint nodes - Unreachable
+  command: kubectl taint nodes --all node.kubernetes.io/unreachable-
