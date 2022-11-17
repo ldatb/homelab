@@ -2,15 +2,18 @@
   apt_key:
     url: "https://baltocdn.com/helm/signing.asc"
     state: present
+  become: true
 
 - name: Add Helm repository into sources list
   apt_repository:
     filename: helm
     repo: "deb [arch={{ architecture }}] https://baltocdn.com/helm/stable/{{ ansible_distribution | lower }}/ all main"
     state: present
+  become: true
 
 - name: Install Helm
   apt:
     name: helm
     state: present
     update-cache: yes
+  become: true
