@@ -1,5 +1,5 @@
-- name: Install nginx
-  include_tasks: nginx.yml
+- name: Install Calico
+  include_tasks: calico.yml
 
 - name: Install Helm
   include_tasks: helm.yml
