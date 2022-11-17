@@ -1,0 +1,15 @@
+- name: Apply mandatory nginx pods
+  command: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+
+- name: Copy nginx config file
+  template:
+    src: nginx-host-networking-yml.j2
+    dest: "nginx-host-networking.yml"
+
+- name: Patch nginx configs
+  command: kubectl -n ingress-nginx patch deployment nginx-ingress-controller --patch="$(<nginx-host-networking.yaml)"
+
+- name: Delete config file
+  file:
+    path: nginx-host-networking.yml
+    state: absent
