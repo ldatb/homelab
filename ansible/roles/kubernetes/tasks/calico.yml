@@ -1,0 +1,32 @@
+- name: Install Calico Tigera Operator
+  command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+  become: true
+  become_user: "{{ std_username }}"
+
+- name: Create Calico custom resources file
+  template:
+    src: calico-custom-resources-yml.j2
+    dest: "/tmp/calico-custom-resources.yml"
+
+- name: Install Calico custom resources
+  command: kubectl create -f /tmp/calico-custom-resources.yml
+  become: true
+  become_user: "{{ std_username }}"
+
+- name: Remove Calico custom resources file
+  file:
+    path: /tmp/calico-custom-resources.yml
+    state: absent
+
+- name: Install calicoctl as a Kubernetes pod - etcd
+  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/calicoctl-etcd.yaml
+  become: true
+  become_user: "{{ std_username }}"
+
+- name: Install calicoctl as a Kubernetes pod - k8s api datastore
+  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/calicoctl.yaml
+  become: true
+  become_user: "{{ std_username }}"
+
+- name: Create alias for calicoctl
+  command: alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"
