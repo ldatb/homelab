@@ -1,18 +1,8 @@
-#- name: Install Calico
-#  include_tasks: calico.yml
+- name: Install nginx
+  include_tasks: nginx.yml
+
+- name: Install cert-manager
+  include_tasks: cert-manager.yml
 
 - name: Install Helm
   include_tasks: helm.yml
-
-- name: Create custom K8s metrics resources file
-  template:
-    src: k8s-metrics-components-yaml.j2
-    dest: "~/k8s-metrics-components.yaml"
-
-- name: Create K8s Metrics
-  command: kubectl create -f ~/k8s-metrics-components.yaml
-
-- name: Delete K8s metrics resources file
-  file:
-    path: ~/k8s-metrics-components.yaml
-    state: absent
