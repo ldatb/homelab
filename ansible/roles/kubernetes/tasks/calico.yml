@@ -1,7 +1,7 @@
 - name: Install Calico Tigera Operator
   command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
   become: true
-  become_user: "{{ std_username }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Create Calico custom resources file
   template:
@@ -11,22 +11,43 @@
 - name: Install Calico custom resources
   command: kubectl create -f /tmp/calico-custom-resources.yml
   become: true
-  become_user: "{{ std_username }}"
+  become_user: "{{ ansible_user }}"
+
+- name: Wait for all Calico pods become created
+  command: "kubectl get pods --namespace=calico-system --output=jsonpath='{.items[*].metadata.name}'"
+  register: calico_pods_created
+  until: item in calico_pods_created.stdout
+  retries: 10
+  delay: 30
+  with_items:
+    - calico-kube-controllers
+    - calico-node
+    - calico-typha
+    - csi-node-driver
+
+- name: Wait until all calico-system pods are running
+  command: kubectl wait --namespace=calico-system --for=condition=Ready pods --all --timeout=600s
+  register: calico_pods_ready
+- debug: var=calico_pods_ready.stdout_lines
 
 - name: Remove Calico custom resources file
   file:
     path: /tmp/calico-custom-resources.yml
     state: absent
 
-- name: Install calicoctl as a Kubernetes pod - etcd
-  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/calicoctl-etcd.yaml
-  become: true
-  become_user: "{{ std_username }}"
+- name: Download the calicoctl docker image
+  command: docker pull calico/ctl:v3.24.5
 
-- name: Install calicoctl as a Kubernetes pod - k8s api datastore
+- name: Install calicoctl as a Kubernetes pod
   command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/calicoctl.yaml
-  become: true
-  become_user: "{{ std_username }}"
 
-- name: Create alias for calicoctl
+- name: Confirm calicoctl is functional
+  command: kubectl exec -ti -n kube-system calicoctl -- /calicoctl get profiles -o wide
+
+- name: Set an alias to calicoctl
   command: alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: Set Calico datastore type
+  command: DATASTORE_TYPE=kubernetes KUBECONFIG=~/.kube/config calicoctl get nodes
