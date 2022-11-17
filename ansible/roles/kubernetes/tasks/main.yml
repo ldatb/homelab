@@ -51,22 +51,38 @@
     path: .kube
     state: directory
   become: true
-  become_user: "{{ std_username }}"
+  become_user: "{{ ansible_user }}"
 
 - name: Give kubectl rights to another user than root - Copy config files
   copy:
     remote_src: yes
     src: /etc/kubernetes/admin.conf
     dest: .kube/config
-    owner: "{{ std_username }}"
-    group: "{{ std_username }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0755
-
 
 - name: Untaint nodes - Master
   command: kubectl taint nodes --all node-role.kubernetes.io/master-
   become: true
-  become_user: "{{ std_username }}"
+  become_user: "{{ ansible_user }}"
+
+- name: Wait for all control-plane pods become created
+  command: "kubectl get pods --namespace=kube-system --selector tier=control-plane --output=jsonpath='{.items[*].metadata.name}'"
+  register: control_plane_pods_created
+  until: item in control_plane_pods_created.stdout
+  retries: 10
+  delay: 30
+  with_items:
+    - etcd
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler
+
+- name: Wait until all kube-system control-plane pods are running
+  command: kubectl wait --namespace=kube-system --for=condition=Ready pods --selector tier=control-plane --timeout=600s
+  register: control_plane_pods_ready
+- debug: var=control_plane_pods_ready.stdout_lines
 
 - name: Install Calico for networking
   include_tasks: calico.yml
