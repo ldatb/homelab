@@ -1,8 +1,5 @@
 - name: Install nginx
   include_tasks: nginx.yml
 
-- name: Install cert-manager
-  include_tasks: cert-manager.yml
-
 - name: Install Helm
   include_tasks: helm.yml
