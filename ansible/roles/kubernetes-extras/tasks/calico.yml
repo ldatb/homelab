@@ -1,7 +1,5 @@
 - name: Install Calico Tigera Operator
   command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
-  become: true
-  become_user: "{{ ansible_user }}"
 
 - name: Create Calico custom resources file
   template:
@@ -10,11 +8,9 @@
 
 - name: Install Calico custom resources
   command: kubectl create -f /tmp/calico-custom-resources.yml
-  become: true
-  become_user: "{{ ansible_user }}"
 
 - name: Wait for all Calico pods become created
-  command: "kubectl get pods --namespace=calico-system --output=jsonpath='{.items[*].metadata.name}'"
+  command: "kubectl get pods --namespace=calico-system --output=jsonpath='{.items[*].metadata.labels.k8s-app}'"
   register: calico_pods_created
   until: item in calico_pods_created.stdout
   retries: 10
@@ -37,17 +33,44 @@
 
 - name: Download the calicoctl docker image
   command: docker pull calico/ctl:v3.24.5
+  become: true
 
 - name: Install calicoctl as a Kubernetes pod
   command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/calicoctl.yaml
+
+- name: Wait for calicoctl pod to be created
+  command: "kubectl get pods --namespace=kube-system --output=jsonpath='{.items[*].metadata.name}'"
+  register: calicoctl_pod_created
+  until: item in calicoctl_pod_created.stdout
+  retries: 10
+  delay: 30
+  with_items:
+    - calicoctl
+
+- name: Wait until calicoctl pod are running
+  command: kubectl wait --namespace=kube-system --for=condition=Ready pod/calicoctl --timeout=600s
+  register: calico_pods_ready
+- debug: var=calico_pods_ready.stdout_lines
 
 - name: Confirm calicoctl is functional
   command: kubectl exec -ti -n kube-system calicoctl -- /calicoctl get profiles -o wide
 
 - name: Set an alias to calicoctl
-  command: alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"
-  become: true
-  become_user: "{{ ansible_user }}"
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.bashrc"
+    line: "alias calicoctl='kubectl exec -i -n kube-system calicoctl -- /calicoctl'"
+    owner: "{{ ansible_user }}"
+    regexp: "alias calicoctl='kubectl exec -i -n kube-system calicoctl -- /calicoctl'"
+    state: present
+    insertafter: EOF
+    create: True
+
+- name: Source .bashrc
+  shell: "source /home/{{ ansible_user }}/.bashrc"
+  args:
+    executable: /bin/bash
 
 - name: Set Calico datastore type
-  command: DATASTORE_TYPE=kubernetes KUBECONFIG=~/.kube/config calicoctl get nodes
+  shell: DATASTORE_TYPE=kubernetes KUBECONFIG=~/.kube/config kubectl exec -i -n kube-system calicoctl -- /calicoctl get nodes
+  args:
+    executable: /bin/bash
