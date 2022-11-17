@@ -1,12 +1,11 @@
 ---
 - name: Bootstrap Cumulus
   hosts: cumulus
-  become: yes
   gather_facts: yes
   roles:
-  - dependencies
-  - qemu-kvm
-  - docker
-  - containerd
-  - kubernetes
-  - kubernetes-extras
+  - { role: dependencies, become: true }
+  - { role: qemu-kvm, become: true }
+  - { role: docker, become: true }
+  - { role: containerd, become: true }
+  - { role: kubernetes, become: true }
+  - { role: kubernetes-extras, become: false }
