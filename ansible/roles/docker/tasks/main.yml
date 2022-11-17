@@ -17,13 +17,32 @@
     - containerd.io
     state: present
     update-cache: yes
+    install_recommends: no
 
 - name: Start Docker service
   service:
     name: docker
     state: started
 
+- name: Ensure Docker group exists
+  group:
+    name: docker
+    state: present
+    gid: 1750
+
 - name: Give Docker rights to user
   user:
     name: "{{ std_username }}"
+    groups: docker
+    append: yes
+
+- name: Ensure permissions for the docker.sock are set
+  file:
+    path: /var/run/docker.sock
+    owner: root
     group: docker
+    mode: '0644'
+
+- name: Reboot machine so permissions are set
+  reboot:
+    reboot_timeout: 300
