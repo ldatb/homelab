@@ -143,6 +143,51 @@ Use the `--ask-pass` option if you're not using a key pair.
     </tr>
 </table>
 
+# Roadmap
+**STATUS: Alpha**
+
+## Released
+- Automated controller set up (QEMU/KVM, Docker, Kubernetes)
+
+## Planned for next release
+- Automated minimal setup (k3s or microk8s)
+- Automated cluster creation
+- Automated application deployment
+- Automated DNS management
+- Observability
+  - Applications monitoring
+  - System monitoring
+  - CRON jobs monitoring
+  - Logging
+  - Alerting
+- Core applications
+  - TrueNAS Core
+  - Homer
+  - Kimchi
+  - SpeedTest Tracker
+
+## Planned for future releases
+- Automated bare metal provisioning (PXE Boot)
+- Automated certificate management
+- Private container registry
+- Expose services to the internet with CloudFlare and Route 53
+- Single command to deploy all apps
+- Applications
+  - NextCloud
+  - Immich
+  - Paperless-NGX
+  - BitWarden
+  - Kopia
+  - Jenkins
+  - Gitea
+
+## Unplanned
+- Serverless
+- Multi-node K8s cluster
+- Cluster API
+- Migrate to StarlingX
+- RAID
+
 # License
 Copyright &copy; 2022 Lucas de Ataides
 
