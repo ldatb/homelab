@@ -6,6 +6,8 @@
 - name: Install dependencies
   apt:
     name:
+      - vim
+      - nano
       - curl
       - ca-certificates
       - apt-transport-https
