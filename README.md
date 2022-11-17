@@ -45,8 +45,9 @@ I recommend at least 8 GB RAM for this. -> [COMPLETE] <-
 
 ## Setup
 ```
-ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory
+ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory 
 ```
+Use the `--ask-pass` option if you're not using a key pair.
 
 ## Tech Stack
 <table>
