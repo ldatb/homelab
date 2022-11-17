@@ -68,7 +68,7 @@
   become_user: "{{ ansible_user }}"
 
 - name: Wait for all control-plane pods become created
-  command: "kubectl get pods --namespace=kube-system --selector tier=control-plane --output=jsonpath='{.items[*].metadata.name}'"
+  command: "kubectl get pods --namespace=kube-system --selector tier=control-plane --output=jsonpath='{.items[*].metadata.labels.component}'"
   register: control_plane_pods_created
   until: item in control_plane_pods_created.stdout
   retries: 10
@@ -78,11 +78,12 @@
     - kube-apiserver
     - kube-controller-manager
     - kube-scheduler
+  become: true
+  become_user: "{{ ansible_user }}"
 
 - name: Wait until all kube-system control-plane pods are running
   command: kubectl wait --namespace=kube-system --for=condition=Ready pods --selector tier=control-plane --timeout=600s
   register: control_plane_pods_ready
+  become: true
+  become_user: "{{ ansible_user }}"
 - debug: var=control_plane_pods_ready.stdout_lines
-
-- name: Install Calico for networking
-  include_tasks: calico.yml
