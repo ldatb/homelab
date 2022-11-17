@@ -23,20 +23,3 @@
   service:
     name: docker
     state: started
-
-- name: Ensure Docker group exists
-  group:
-    name: docker
-    state: present
-    gid: 1750
-
-- name: Give Docker rights to user
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
-
-- name: Activate changes in user groups
-  command: newgrp docker
-  become: true
-  become_user: "{{ ansible_user }}"
