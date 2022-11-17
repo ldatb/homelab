@@ -1,6 +1,11 @@
 - name: Disable swap
   command: swapoff -a
 
+- name: Allow br_netfilter module to load
+  template:
+    src: modules-k8s-conf.j2
+    dest: "/etc/modules-load.d/k8s.conf"
+
 - name: Add Kubernetes GPG keys
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -11,16 +16,6 @@
     filename: kubernetes.list
     repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
     state: present
-
-- name: Allow br_netfilter module to load into kubernetes
-  template:
-    src: modules-k8s-conf.j2
-    dest: "/etc/modules-load.d/k8s.conf"
-
-- name: Create IPv4 and IPv6 configs for Kubernetes
-  template:
-    src: sysctl-k8s-conf.j2
-    dest: "/etc/sysctl.d/k8s.conf"
 
 - name: Install Kubernetes
   apt:
@@ -40,19 +35,16 @@
     - kubeadm
     - kubectl
 
-- name: Create Cluster
-  command: kubeadm init --cri-socket /var/run/containerd/containerd.sock --service-cidr 10.22.0.0/16 --pod-network-cidr 10.23.0.0/16
-
-- name: Update Kubelet config
+- name: Create IPv4 and IPv6 configs for Kubernetes
   template:
-    src: kubelet-config-yaml.j2
-    dest: "/var/lib/kubelet/config.yaml"
+    src: sysctl-k8s-conf.j2
+    dest: "/etc/sysctl.d/k8s.conf"
 
-- name: Restart Kubelet
-  service:
-    name: kubelet
-    daemon_reload: yes
-    state: restarted
+- name: Apply sysctl params without reboot
+  command: sysctl --system
+
+- name: Create Cluster
+  command: kubeadm init --pod-network-cidr 10.244.0.0/16
 
 - name: Give kubectl rights to another user than root - Create directory
   file:
@@ -70,8 +62,11 @@
     group: "{{ std_username }}"
     mode: 0755
 
+
 - name: Untaint nodes - Master
   command: kubectl taint nodes --all node-role.kubernetes.io/master-
+  become: true
+  become_user: "{{ std_username }}"
 
-- name: Untaint nodes - Unreachable
-  command: kubectl taint nodes --all node.kubernetes.io/unreachable-
+- name: Install Calico for networking
+  include_tasks: calico.yml

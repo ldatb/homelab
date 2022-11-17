@@ -1,3 +1,10 @@
+- name: Install containerd
+  apt:
+    name:
+    - containerd.io
+    state: present
+    update-cache: yes
+
 - name: Restart containerd
   service:
     name: containerd
@@ -24,10 +31,16 @@
     name: br_netfilter
     state: present
 
+- name: Add br_netfilter config
+  command: echo 'net.bridge.bridge-nf-call-iptables = 1' > /etc/sysctl.d/20-bridge-nf.conf
+
 - name: Add network configs for containerd
   template:
     src: 99-kubernetes-cri-conf.j2
     dest: "/etc/sysctl.d/99-kubernetes-cri.conf"
+
+- name: Apply sysctl params without reboot
+  command: sysctl --system
 
 - name: Ensure containerd config directory exists
   file:
