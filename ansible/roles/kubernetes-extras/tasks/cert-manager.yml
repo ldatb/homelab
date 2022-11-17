@@ -1,0 +1,21 @@
+- name: Create namespace
+  command: kubectl create ns cert-manager
+
+- name: Set context to namespace
+  command: kubectl config set-context --current --namespace=cert-manager
+
+- name: Apply cert-manager
+  command: kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.7/deploy/manifests/cert-manager.yaml
+
+- name: Add external DNS config file
+  template:
+    src: external-dns-yml.j2
+    dest: "external-dns.yml"
+
+- name: Apply external DNS config
+  command: kubectl -n cert-manager patch deployment cert-manager --patch="$(<external-dns.yaml)"
+
+- name: Delete config file
+  file:
+    path: external-dns.yml
+    state: absent
