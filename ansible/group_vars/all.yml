@@ -1,5 +1,5 @@
-ansible_user: sysadmin
-ansible_become_pass: Li69nux*
+ansible_user: user
+ansible_become_pass: password
 
 architecture: amd64
 k8s_version: 1.21.5-00
