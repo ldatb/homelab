@@ -41,9 +41,11 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 * [ ] Kopia
 
 ## Hardware:
-I recommend at least 8 GB RAM for this. -> [COMPLETE] <-
+For the moment, this is a single-node kubernetes cluster, so I recommend you have at least 8GB of RAM and 8 CPUs.
+It is nice to have at least 512 GB of disk space.
 
 ## Setup
+To use this playbook you need the community.general package. To install it, use `ansible-galaxy collection install community.general`
 ```
 ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory 
 ```
