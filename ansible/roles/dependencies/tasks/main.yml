@@ -6,6 +6,7 @@
 - name: Install dependencies
   apt:
     name:
+      - ufw
       - vim
       - nano
       - curl
@@ -19,3 +20,24 @@
       - python3-pip
     state: present
     update-cache: yes
+
+- name: Allow SSH ports
+  ufw:
+    rule: allow
+    name: "{{ item }}"
+  with_items: 
+    - OpenSSH
+    - ssh
+
+- name: Alow tcp ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: 
+    - 80
+    - 443
+
+- name: Enable the firewall
+  ufw:
+    state: enabled
