@@ -86,4 +86,3 @@
   register: control_plane_pods_ready
   become: true
   become_user: "{{ ansible_user }}"
-- debug: var=control_plane_pods_ready.stdout_lines
