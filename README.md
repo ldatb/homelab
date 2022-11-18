@@ -148,10 +148,10 @@ Use the `--ask-pass` option if you're not using a key pair.
 # Roadmap
 **STATUS: Alpha**
 
-## Released
+### Released
 - Automated controller set up (QEMU/KVM, Docker, Kubernetes)
 
-## Planned for next release
+### Planned for next release
 - Automated minimal setup (k3s or microk8s)
 - Automated cluster creation
 - Automated application deployment
@@ -168,7 +168,7 @@ Use the `--ask-pass` option if you're not using a key pair.
   - Kimchi
   - SpeedTest Tracker
 
-## Planned for future releases
+### Planned for future releases
 - Automated bare metal provisioning (PXE Boot)
 - Automated certificate management
 - Private container registry
@@ -183,7 +183,7 @@ Use the `--ask-pass` option if you're not using a key pair.
   - Jenkins
   - Gitea
 
-## Unplanned
+### Unplanned
 - Serverless
 - Multi-node K8s cluster
 - Cluster API
