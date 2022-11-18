@@ -1,0 +1,33 @@
+- name: Alow ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: 
+    - 6443
+    - 2379
+    - 2380
+    - 10250
+    - 10251
+    - 10253
+  become: true
+
+- name: Deploy nginx
+  command: kubectl create deployment nginx --image=nginx
+
+- name: Wait for nginx pod to be created
+  command: "kubectl get pods --namespace=default --output=jsonpath='{.items[*].metadata.labels.app}'"
+  register: nginx_created
+  until: item in nginx_created.stdout
+  retries: 10
+  delay: 30
+  with_items:
+    - nginx
+
+- name: Wait until nginx pod are running
+  command: kubectl wait --namespace=default --for=condition=Ready pods --selector app=nginx --timeout=600s
+  register: nginx_ready
+- debug: var=nginx_ready.stdout_lines
+
+- name: Make the NGINX container accessible via the internet
+  command: kubectl create service nodeport nginx --tcp=80:80

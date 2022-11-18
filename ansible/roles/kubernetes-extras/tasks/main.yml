@@ -3,3 +3,6 @@
 
 - name: Install Helm
   include_tasks: helm.yml
+
+- name: Install nginx-ingress
+  include_tasks: nginx.yml
