@@ -45,7 +45,6 @@ For the moment, this is a single-node kubernetes cluster, so I recommend you hav
 It is nice to have at least 512 GB of disk space.
 
 ## Setup
-To use this playbook you need the community.general package. To install it, use `ansible-galaxy collection install community.general`
 ```
 ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory 
 ```
