@@ -3,3 +3,8 @@ ansible_become_pass: password
 
 architecture: amd64
 k8s_version: 1.21.5-00
+
+ports:
+  - 80    # http
+  - 443   # https
+  - 3000  # homepage
