@@ -86,3 +86,18 @@
   register: control_plane_pods_ready
   become: true
   become_user: "{{ ansible_user }}"
+
+- name: Copy Cumulus namespace file
+  template:
+    src: cumulus-namespace-yml.j2
+    dest: "/tmp/cumulus-namespace.yml"
+
+- name: Create Cumulus namespace
+  command: "kubectl apply -f '/tmp/cumulus-namespace.yml'"
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: Delete cumulus-namespace.yml
+  file:
+    path: /tmp/cumulus-namespace.yml
+    state: absent
