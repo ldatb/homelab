@@ -5,7 +5,6 @@ book/
 # Huge files
 *.iso
 *.log
-*.png
 *.tgz
 *kubeconfig.yaml
 Chart.lock
