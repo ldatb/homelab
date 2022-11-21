@@ -31,7 +31,8 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 * [ ] CI/CD platform
 
 ## Applications and services
-To install an application, use `helm install <app-name> <app-dir> --values <app-values>`
+To install an application, use `helm install <app-name> <app-dir> --values <app-values>`.
+
 To install all the core applications (Homepage, Kimchi, Glances, Prometheus and Grafana) you can use the core-apps Ansible playbook (WIP).
 
 ### Hosted Applications
