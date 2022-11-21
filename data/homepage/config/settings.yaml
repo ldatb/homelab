@@ -1,0 +1,23 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Settings
+
+title: Cumulus
+
+# background: /images/background.jpg
+# backgroundOpacity: 0.35
+# favicon: /images/favicon.ico
+
+theme: dark # dark or light
+color: stone # Supported colors are: slate, gray, zinc, neutral, stone, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, red, white
+
+layout:
+  Media:
+    style: row
+    columns: 4
+
+headerStyle: underlined # underlined, boxed or clean
+
+language: en # Currently supported languages: ca, de, en, es, fr, he, hr, hu, it, nb-NO, nl, pt, ru, sv, vi, zh-CN, zh-Hant
+target: _blank # Possible options include _blank, _self, and _top
+# base: http://host.local/homepage

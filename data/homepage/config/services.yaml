@@ -1,0 +1,61 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Services
+
+- APPLICATIONS:
+    - NextCloud:
+        href: http://localhost/
+        icon: nextcloud.png
+        description: A safe home for all your data.
+    - Immich:
+        href: http://localhost/
+        icon: immich.png
+        description: Photo and video backup solution directly from your mobile phone.
+    - Paperless:
+        href: http://localhost/
+        icon: paperless.png
+        description: Document management system that transforms your physical documents into a searchable online archive.
+    - BitWarden:
+        href: http://localhost/
+        icon: bitwarden.png
+        description: Password management solution.
+
+- DEVELOPMENT TOOLS:
+    - Gitea:
+        href: http://localhost/
+        icon: gitea.png
+        description: A painless self-hosted Git service.
+    - Jenkins:
+        href: http://localhost/
+        icon: jenkins.png
+        description: Automation server to reliably build, test, and deploy software.
+    - PrivateBin:
+        href: http://localhost/
+        icon: privatebin.png
+        description: Online pastebin where the server has zero knowledge of pasted data.
+
+- CUMULUS TOOLS:
+    - Homepage:
+        href: http://localhost/
+        icon: homepage.png
+        description: It's this page!
+    - Kimchi:
+        href: http://localhost/
+        icon: https://github.com/kimchi-project/kimchi/blob/master/ui/images/kimchi.svg
+        description: Dashboard and management interface for KVM guests.
+    - Glances:
+        href: http://localhost/
+        icon: glances.png
+        description: Monitoring tool to present a large amount of system information.
+    - Grafana:
+        href: http://localhost/
+        icon: grafana.png
+        description: Observability and data visualization platform.
+    - Harbor:
+        href: http://localhost/
+        icon: harbor.png
+        description:  Container registry that secures artifacts with policies and role-based access control.
+    - Kopia:
+        href: http://localhost/
+        icon: kopia.png
+        description: Fast and Secure Backup software.
