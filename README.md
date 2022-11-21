@@ -30,15 +30,32 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 * [ ] Private container registry
 * [ ] CI/CD platform
 
-## Hosted Services
-* [ ] TrueNAS Core
+## Applications and services
+To install an application, use `helm install <app-name> <app-dir> --values <app-values>`
+To install all the core applications (Homepage, Kimchi, Glances, Prometheus and Grafana) you can use the core-apps Ansible playbook (WIP).
+
+### Hosted Applications
 * [ ] NextCloud
 * [ ] Immich
 * [ ] Paperless-NGX
+* [ ] TrueNAS Core
 * [ ] BitWarden
 * [ ] Gitea
 * [ ] Jenkins
 * [ ] Kopia
+* [ ] PrivateBin
+
+### Hosted Services
+* [x] Homepage
+* [ ] Kimchi
+* [ ] Glances
+* [ ] Harbor
+* [ ] Grafana + Prometheus
+* [ ] Unbound
+* [ ] DDNS-Route53
+* [ ] ExternalDNS
+* [ ] Cert-manager
+* [ ] Uptime Kuma
 
 ## Hardware:
 For the moment, this is a single-node kubernetes cluster, so I recommend you have at least 8GB of RAM and 8 CPUs.
