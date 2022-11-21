@@ -73,8 +73,8 @@ Use the `--ask-pass` option if you're not using a key pair.
         <th>Machine emulator and virtualizer</th>
     </tr>
     <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/bastienwirtz/homer/main/public/logo.png"></th>
-        <th>Homer</th>
+        <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/benphelps/homepage/main/images/banner_light%402x.png"></th>
+        <th>Homepage</th>
         <th>Homepage for the services and applications</th>
     </tr>
     <tr>
@@ -138,8 +138,8 @@ Use the `--ask-pass` option if you're not using a key pair.
         <th>Remote desktop gateway</th>
     </tr>
     <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://cdn.worldvectorlogo.com/logos/speedtest.svg"></th>
-        <th>SpeedTest Tracker</th>
+        <th><img width="32" style="display:flex; justify-content: center;" src="https://uptime.kuma.pet/img/icon.svg"></th>
+        <th>Uptime Kuma</th>
         <th>Continuously track your internet speed</th>
     </tr>
 </table>
@@ -163,9 +163,9 @@ Use the `--ask-pass` option if you're not using a key pair.
   - Alerting
 - Core applications
   - TrueNAS Core
-  - Homer
+  - Homepage
   - Kimchi
-  - SpeedTest Tracker
+  - Uptime Kuma
 
 ### Planned for future releases
 - Automated bare metal provisioning (PXE Boot)
@@ -181,6 +181,7 @@ Use the `--ask-pass` option if you're not using a key pair.
   - Kopia
   - Jenkins
   - Gitea
+  - PrivateBin
 
 ### Unplanned
 - Serverless
