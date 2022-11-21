@@ -1,0 +1,28 @@
+# This needs 2 volumes because the /app folder for this app contains the files for the application to run, so it can't be overwritten.
+# Ths way, it only overwrites the folders that we need (config and public)
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.volumes.config.pvc }}
+  namespace: {{ .Values.namespace }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.volumes.public.pvc }}
+  namespace: {{ .Values.namespace }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi

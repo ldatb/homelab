@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      hostNetwork: true # Remove this when going to use DDNS
+      volumes:
+      - name: {{ .Values.volumes.config.pv }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.volumes.config.pvc }}
+      - name: {{ .Values.volumes.public.pv }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.volumes.public.pvc }}
+      containers:
+      - name: {{ .Values.appName }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+          - mountPath: "/app/config"
+            name: {{ .Values.volumes.config.pv }}
+          - mountPath: "/app/public"
+            name: {{ .Values.volumes.public.pv }}

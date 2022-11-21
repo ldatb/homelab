@@ -1,0 +1,16 @@
+appName: homepage
+namespace: cumulus
+
+image:
+  name: ghcr.io/benphelps/homepage
+  tag: v0.4.18
+
+volumes:
+  config:
+    pv: homepage-config-pv
+    pvc: homepage-config-pvc
+    path: /home/ldatb/cumulus/homepage/config
+  public:
+    pv: homepage-public-pv
+    pvc: homepage-public-pvc
+    path: /home/ldatb/cumulus/homepage/public

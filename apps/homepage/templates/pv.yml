@@ -1,0 +1,33 @@
+# This needs 2 volumes because the /app folder for this app contains the files for the application to run, so it can't be overwritten.
+# Ths way, it only overwrites the folders that we need (config and public)
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.volumes.config.pv }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.volumes.config.path }}
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.volumes.public.pv }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.volumes.public.path }}
