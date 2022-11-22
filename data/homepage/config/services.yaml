@@ -36,12 +36,12 @@
 
 - CUMULUS TOOLS:
     - Homepage:
-        href: http://localhost/
+        href: http://localhost:3000/
         icon: homepage.png
         description: It's this page!
-    - Kimchi:
-        href: http://localhost/
-        icon: https://github.com/kimchi-project/kimchi/blob/master/ui/images/kimchi.svg
+    - Cockpit:
+        href: http://localhost:9090/
+        icon: https://cockpit-project.org/images/site/cockpit-logo.svg
         description: Dashboard and management interface for KVM guests.
     - Glances:
         href: http://localhost/
