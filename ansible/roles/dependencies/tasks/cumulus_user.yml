@@ -3,42 +3,31 @@
    name: cumulus
    password: '!' # This is to disable the password
    groups:
-    - sudo
     - adm
-    - wheel
+    - sudo
    state: present
    home: /home/cumulus
-   generate_ssh_key: yes
-   ssh_key_file: ".ssh/{{ cumulus_user_ssh_key_filename }}"
-#
-#- name: Create key pair at the localhost
-#  local_action: 
-#    openssh_keypair:
-#      path: "~/.ssh/{{ cumulus_user_ssh_key_filename }}"
-#      type: rsa
-#      size: 4096
-#      state: present
-#      force: no
-#
-#- name: Add the key pair to the ssh-agent at the localhost
-#  local_action: 
-#    command: eval "$(ssh-agent -s)"
-#    args:
-#      executable: /bin/bash
-#
-#- name: Copy cumulus public key pair to the server
-#  copy:
-#    src: "~/.ssh/{{ cumulus_user_ssh_key_filename }}"
-#    dest: /home/cumulus/.ssh/authorized_keys
-#    owner: cumulus
-#    group: cumulus
-#    mode: '0600'
-#
+   shell: /bin/bash
+
+- name: Make sure that the .ssh folder exists
+  file:
+    path: /home/cumulus/.ssh
+    state: directory
+  become: true
+  become_user: cumulus
+
+- name: Copy cumulus public key pair to the server
+  copy:
+    src: "{{ public_ssh_key_full_path }}"
+    dest: /home/cumulus/.ssh/authorized_keys
+    owner: cumulus
+    group: cumulus
+    mode: '0600'
+
 - name: Copy data folder to cumulus user home
   copy:
-    src: /cumulus_user_data
-    dest: /home/cumulus/data
-    remote_src: yes
+    src: "{{ playbook_dir }}/../data"
+    dest: /home/cumulus
     owner: cumulus
     group: cumulus
     mode: '0644'
