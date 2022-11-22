@@ -1,7 +1,7 @@
 ansible_user: user
-ansible_become_pass: password
+ansible_become_pass: passwd
 
-cumulus_user_ssh_key_filename: cumulus-ssh-key
+public_ssh_key_full_path: full/path/to/public/key
 
 architecture: amd64
 k8s_version: 1.21.5-00
