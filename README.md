@@ -97,11 +97,6 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
         <th>Machine emulator and virtualizer</th>
     </tr>
     <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/benphelps/homepage/main/images/banner_light%402x.png"></th>
-        <th>Homepage</th>
-        <th>Homepage for the services and applications</th>
-    </tr>
-    <tr>
         <th><img width="32" style="display:flex; justify-content: center;" src="https://www.freelogovectors.net/svg03/cloudflare-logo.svg"></th>
         <th>CloudFlare</th>
         <th>DNS and tunnel</th>
@@ -147,24 +142,11 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
         <th>System monitoring tool</th>
     </tr>
     <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://pbs.twimg.com/profile_images/1055543716201615365/geMDWaHV_400x400.jpg"></th>
-        <th>Healthchecks</th>
-        <th>Cron job monitoring</th>
-    </tr>
-    <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://cockpit-project.org/images/site/cockpit-logo.svg"></th>
-        <th>Cockpit</th>
-        <th>Dashboard for KVM instances</th>
     </tr>
     <tr>
         <th><img width="32" style="display:flex; justify-content: center;" src="https://www.pinclipart.com/picdir/big/519-5196913_apache-guacamole-logo-clipart.png"></th>
         <th>Guacamole</th>
         <th>Remote desktop gateway</th>
-    </tr>
-    <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://uptime.kuma.pet/img/icon.svg"></th>
-        <th>Uptime Kuma</th>
-        <th>Continuously track your internet speed</th>
     </tr>
 </table>
 
