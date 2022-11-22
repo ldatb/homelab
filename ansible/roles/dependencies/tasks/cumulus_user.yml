@@ -1,0 +1,44 @@
+- name: Create Cumulus user
+  user:
+   name: cumulus
+   password: '!' # This is to disable the password
+   groups:
+    - sudo
+    - adm
+    - wheel
+   state: present
+   home: /home/cumulus
+   generate_ssh_key: yes
+   ssh_key_file: ".ssh/{{ cumulus_user_ssh_key_filename }}"
+#
+#- name: Create key pair at the localhost
+#  local_action: 
+#    openssh_keypair:
+#      path: "~/.ssh/{{ cumulus_user_ssh_key_filename }}"
+#      type: rsa
+#      size: 4096
+#      state: present
+#      force: no
+#
+#- name: Add the key pair to the ssh-agent at the localhost
+#  local_action: 
+#    command: eval "$(ssh-agent -s)"
+#    args:
+#      executable: /bin/bash
+#
+#- name: Copy cumulus public key pair to the server
+#  copy:
+#    src: "~/.ssh/{{ cumulus_user_ssh_key_filename }}"
+#    dest: /home/cumulus/.ssh/authorized_keys
+#    owner: cumulus
+#    group: cumulus
+#    mode: '0600'
+#
+- name: Copy data folder to cumulus user home
+  copy:
+    src: /cumulus_user_data
+    dest: /home/cumulus/data
+    remote_src: yes
+    owner: cumulus
+    group: cumulus
+    mode: '0644'
