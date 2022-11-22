@@ -64,9 +64,15 @@ It is nice to have at least 512 GB of disk space.
 
 ## Setup
 ```
-ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory 
+ansible-playbook ./ansible/bootstrap.yml -u <username> --private-key <keypair-file> -i ./ansible/inventory 
 ```
-Use the `--ask-pass` option if you're not using a key pair. NOT RECOMMENDED. This can be insecure if you're exposing your server to the internet. To understand how to setup an SSH key, check https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
+**Update the group_vars/all.yml file before running the playbook**
+
+**WARNING:** A new user (named cumulus) will be created to hold the data files for all applications of this project. You need to specify an SSH key to be added to this new user. 
+
+To understand how to create an SSH key, check https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/ (you only need to create the key, the Ansible playbook will add it to the user). 
+
+Remember to edit the group_vars file to specify the full path the public key (Example: /home/your-user/.ssh/your-key.pub)
 
 ## Tech Stack
 <table>
