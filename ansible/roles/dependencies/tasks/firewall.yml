@@ -1,0 +1,19 @@
+- name: Allow SSH ports
+  ufw:
+    rule: allow
+    name: "{{ item }}"
+  with_items: 
+    - OpenSSH
+    - ssh
+
+- name: Alow tcp ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: 
+    - "{{ ports }}"
+
+- name: Enable the firewall
+  ufw:
+    state: enabled
