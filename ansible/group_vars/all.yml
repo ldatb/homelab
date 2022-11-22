@@ -1,7 +1,6 @@
 ansible_user: user
 ansible_become_pass: passwd
-
-public_ssh_key_full_path: full/path/to/public/key
+ansible_ssh_private_key_file: full/path/to/public/key
 
 architecture: amd64
 k8s_version: 1.21.5-00
@@ -9,4 +8,5 @@ k8s_version: 1.21.5-00
 ports:
   - 80    # http
   - 443   # https
+  - 9090  # cockpit
   - 3000  # homepage
