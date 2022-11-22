@@ -16,7 +16,7 @@
 
 </div>
 
-# Overview
+# Cumulus - Homelab
 The project contains a set of helm charts and ansible playbooks used to setup (and manage) a personal homelab infrastructure. I don't use anything critical on it, only for learning, development and fun purposes.
 
 ## Features
@@ -168,7 +168,7 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
     </tr>
 </table>
 
-# Roadmap
+## Roadmap
 **STATUS: Alpha**
 
 ### Released
@@ -214,10 +214,13 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
 - Migrate to StarlingX
 - RAID
 
-# License
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
 Copyright &copy; 2022 Lucas de Ataides
 
-This project is licensed under the MIT License. See `LICENSE.md` file for more information.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
 # References
 * [Khue's Homelab](https://github.com/khuedoan/homelab)
