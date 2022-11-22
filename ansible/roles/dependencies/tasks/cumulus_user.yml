@@ -18,7 +18,7 @@
 
 - name: Copy cumulus public key pair to the server
   copy:
-    src: "{{ public_ssh_key_full_path }}"
+    src: "{{ ansible_ssh_private_key_file }}"
     dest: /home/cumulus/.ssh/authorized_keys
     owner: cumulus
     group: cumulus
