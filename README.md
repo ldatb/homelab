@@ -33,7 +33,7 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 ## Applications and services
 To install an application, use `helm install <app-name> <app-dir> --values <app-values>`.
 
-To install all the core applications (Homepage, Kimchi, Glances, Prometheus and Grafana) you can use the core-apps Ansible playbook (WIP).
+To install all the core applications (Homepage, Cockpit, Glances, Prometheus and Grafana) you can use the core-apps Ansible playbook (WIP).
 
 ### Hosted Applications
 * [ ] NextCloud
@@ -48,7 +48,7 @@ To install all the core applications (Homepage, Kimchi, Glances, Prometheus and 
 
 ### Hosted Services
 * [x] Homepage
-* [ ] Kimchi
+* [x] Cockpit
 * [ ] Glances
 * [ ] Harbor
 * [ ] Grafana + Prometheus
@@ -64,11 +64,11 @@ It is nice to have at least 512 GB of disk space.
 
 ## Setup
 ```
-ansible-playbook ./ansible/bootstrap.yml -u <username> --private-key <keypair-file> -i ./ansible/inventory 
+ansible-playbook ./ansible/bootstrap.yml -i ./ansible/inventory 
 ```
 **Update the group_vars/all.yml file before running the playbook**
 
-**WARNING:** A new user (named cumulus) will be created to hold the data files for all applications of this project. You need to specify an SSH key to be added to this new user. 
+**WARNING:** A new user (named cumulus) will be created to hold the data files for all applications of this project. The same private key used to login will be assigned to this new user.
 
 To understand how to create an SSH key, check https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/ (you only need to create the key, the Ansible playbook will add it to the user). 
 
@@ -152,8 +152,8 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
         <th>Cron job monitoring</th>
     </tr>
     <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/kimchi-project/kimchi/master/ui/images/kimchi.svg"></th>
-        <th>Kimchi</th>
+        <th><img width="32" style="display:flex; justify-content: center;" src="https://cockpit-project.org/images/site/cockpit-logo.svg"></th>
+        <th>Cockpit</th>
         <th>Dashboard for KVM instances</th>
     </tr>
     <tr>
@@ -188,7 +188,7 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
 - Core applications
   - TrueNAS Core
   - Homepage
-  - Kimchi
+  - Cockpit
   - Uptime Kuma
 
 ### Planned for future releases
