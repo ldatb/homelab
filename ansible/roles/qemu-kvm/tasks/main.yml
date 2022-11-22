@@ -9,6 +9,8 @@
       - bridge-utils
       - cloud-image-utils
       - virtinst
+      - cockpit # This is a web dashboard for KVM
+      - cockpit-machines # This is a web dashboard for KVM
     state: present
     update-cache: yes
 
@@ -35,3 +37,9 @@
     owner: root
     group: root
     mode: 0755
+
+- name: Start cockpit
+  service:
+    name: cockpit
+    enabled: true
+    state: started
