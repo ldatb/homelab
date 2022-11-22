@@ -66,7 +66,7 @@ It is nice to have at least 512 GB of disk space.
 ```
 ansible-playbook ./ansible/bootstrap.yml -u admin --private-key <keypair-file> -i ./ansible/inventory 
 ```
-Use the `--ask-pass` option if you're not using a key pair.
+Use the `--ask-pass` option if you're not using a key pair. NOT RECOMMENDED. This can be insecure if you're exposing your server to the internet. To understand how to setup an SSH key, check https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
 
 ## Tech Stack
 <table>
