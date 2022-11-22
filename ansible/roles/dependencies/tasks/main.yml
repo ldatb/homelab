@@ -40,3 +40,6 @@
 - name: Enable the firewall
   ufw:
     state: enabled
+
+- name: Create Cumulus user
+  include_tasks: cumulus_user.yml
