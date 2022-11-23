@@ -1,4 +1,4 @@
-- name: Alow ports
+- name: Open nginx ports
   ufw:
     rule: allow
     port: "{{ item }}"
