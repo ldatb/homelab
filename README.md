@@ -21,9 +21,9 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 
 ## Features
 * [ ] Automated bare metal provisioning with PXE boot
-* [ ] Automated Kubernetes installation and management
-* [ ] Installing and management of applications with GitOps
-* [ ] Modular architecture
+* [x] Automated Kubernetes installation and management
+* [x] Installing and management of applications with GitOps
+* [x] Modular architecture
 * [ ] Automated certificate management
 * [ ] Expose services to the internet via CloudFlare and Route 53
 * [ ] Hypervisor to create custom VMs
