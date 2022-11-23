@@ -1,0 +1,45 @@
+# A complete list of kube-prometheus-stack can be found on
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+
+namespace: &namespace "default"
+
+kube-prometheus-stack:
+  namespaceOverride: *namespace
+
+  prometheus:
+    enabled: true
+    prometheusSpec:
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+
+  grafana:
+    enabled: true
+    adminPassword: supersecretpasswd
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+
+  alertmanager:
+    enabled: false
+
+  # Enable or disable scrapping of these components:
+  kubeApiServer:
+    enabled: true
+  kubelet:
+    enabled: true
+  kubeControllerManager:
+    enabled: true
+  coreDns:
+    enabled: true
+  kubeDns:
+    enabled: true
+  kubeEtcd:
+    enabled: true
+  kubeScheduler:
+    enabled: true
+  kubeProxy:
+    enabled: true
+  kubeStateMetrics:
+    enabled: true
