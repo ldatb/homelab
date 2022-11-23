@@ -9,3 +9,4 @@
   - { role: containerd, become: true }
   - { role: kubernetes, become: true }
   - { role: kubernetes-extras, become: false }
+  - { role: core-apps, become: false }
