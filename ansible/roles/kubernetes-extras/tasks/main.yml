@@ -1,5 +1,5 @@
-- name: Create Cumulus namespace
-  command: kubectl create namespace cumulus
+- name: Create namespaces
+  include_tasks: namespaces.yml
 
 - name: Install Calico
   include_tasks: calico.yml
