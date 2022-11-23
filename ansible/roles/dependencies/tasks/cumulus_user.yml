@@ -2,9 +2,6 @@
   user:
    name: cumulus
    password: '!' # This is to disable the password
-   groups:
-    - adm
-    - sudo
    state: present
    home: /home/cumulus
    shell: /bin/bash
@@ -18,7 +15,7 @@
 
 - name: Copy cumulus public key pair to the server
   copy:
-    src: "{{ ansible_ssh_private_key_file }}"
+    src: "{{ ssh_public_key_file }}"
     dest: /home/cumulus/.ssh/authorized_keys
     owner: cumulus
     group: cumulus
@@ -27,6 +24,14 @@
 - name: Copy data folder to cumulus user home
   copy:
     src: "{{ playbook_dir }}/../data"
+    dest: /home/cumulus
+    owner: cumulus
+    group: cumulus
+    mode: '0644'
+
+- name: Copy apps folder to cumulus user home
+  copy:
+    src: "{{ playbook_dir }}/../apps"
     dest: /home/cumulus
     owner: cumulus
     group: cumulus
