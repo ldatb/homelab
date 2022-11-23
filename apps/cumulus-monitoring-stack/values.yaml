@@ -1,7 +1,7 @@
 # A complete list of kube-prometheus-stack can be found on
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
 
-namespace: &namespace "default"
+namespace: &namespace "cumulus-monitoring"
 
 kube-prometheus-stack:
   namespaceOverride: *namespace
