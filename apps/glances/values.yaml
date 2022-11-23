@@ -1,0 +1,6 @@
+appName: glances
+namespace: cumulus
+
+image:
+  name: nicolargo/glances
+  tag: 3.3.0.4-full

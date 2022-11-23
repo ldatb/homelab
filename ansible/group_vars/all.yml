@@ -10,3 +10,4 @@ ports:
   - 443   # https
   - 9090  # cockpit
   - 3000  # homepage
+  - 61208 # glances

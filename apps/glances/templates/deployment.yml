@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      hostNetwork: true
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: "/var/run/docker.sock"
+          type: Socket
+      - name: docker-directory
+        hostPath:
+          path: "/var/lib/docker"
+      containers:
+      - name: {{ .Values.appName }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        env:
+        - name: GLANCES_OPT
+          value: "-w"
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock
+          readOnly: false
+        - mountPath: "/var/lib/docker"
+          name: docker-directory
+          readOnly: false
+        ports:
+        - containerPort: 61208
