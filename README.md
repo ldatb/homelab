@@ -33,33 +33,37 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 ## Applications and services
 To install an application, use `helm install <app-name> <app-dir> --values <app-values>`.
 
+Before installing any application, I recommend having a look at the values.yaml file of it's Helm folder.
+
+For a complete explanation of the applications, check [APPS_AND_SERVICES.md](APPS_AND_SERVICES.md)
+
 To install all the core applications (Homepage, Cockpit, Glances, Prometheus and Grafana) you can use the core-apps Ansible playbook (WIP).
 
 ### Hosted Applications
-* [ ] NextCloud
-* [ ] Immich
-* [ ] Paperless-NGX
-* [ ] TrueNAS Core
-* [ ] BitWarden
-* [ ] Gitea
-* [ ] Jenkins
-* [ ] Kopia
-* [ ] PrivateBin
+* [ ] [NextCloud](https://github.com/nextcloud/server)
+* [ ] [Immich](https://github.com/immich-app/immich)
+* [ ] [Paperless-NGX](https://github.com/paperless-ngx/paperless-ngx)
+* [ ] [TrueNAS Core](https://www.truenas.com/download-truenas-core/)
+* [ ] [BitWarden](https://github.com/bitwarden/server)
+* [ ] [Gitea](https://gitea.io/en-us/)
+* [ ] [Jenkins](https://www.jenkins.io/)
+* [ ] [Kopia](https://kopia.io/)
+* [ ] [PrivateBin](https://privatebin.info/)
 
 ### Hosted Services
-* [x] Homepage
-* [x] Cockpit
-* [ ] Glances
-* [ ] Harbor
-* [ ] Grafana + Prometheus
-* [ ] Unbound
-* [ ] DDNS-Route53
-* [ ] ExternalDNS
-* [ ] Cert-manager
-* [ ] Uptime Kuma
+* [x] [Homepage](https://github.com/benphelps/homepage)
+* [x] [Cockpit](https://github.com/cockpit-project/cockpit)
+* [x] [Glances](https://github.com/nicolargo/glances)
+* [ ] [Harbor](https://goharbor.io/)
+* [ ] [Grafana](https://grafana.com/) + [Prometheus](https://prometheus.io/)
+* [ ] [Unbound](https://github.com/NLnetLabs/unbound)
+* [ ] [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
+* [ ] [Cert-manager](https://cert-manager.io/)
+* [ ] [Uptime Kuma](https://github.com/louislam/uptime-kuma)
 
 ## Hardware:
-For the moment, this is a single-node kubernetes cluster, so I recommend you have at least 8GB of RAM and 8 CPUs.
+For the moment, this is a simple single-node kubernetes cluster, so I recommend you have at least 8GB of RAM and 8 CPUs.
+Since (for the time being) this is a very simple project, there's no requirements for fancy equipment. The only thing I'd recommend is having a powerful internet connection, router and cables. Things can get wild...
 It is nice to have at least 512 GB of disk space.
 
 ## Setup
@@ -100,11 +104,6 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
         <th><img width="32" style="display:flex; justify-content: center;" src="https://www.freelogovectors.net/svg03/cloudflare-logo.svg"></th>
         <th>CloudFlare</th>
         <th>DNS and tunnel</th>
-    </tr>
-    <tr>
-        <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/crazy-max/ddns-route53/master/.github/ddns-route53.png"></th>
-        <th>DDNS-Route53</th>
-        <th>Dynamic DNS service for AWS Route 53</th>
     </tr>
     <tr>
         <th><img width="32" style="display:flex; justify-content: center;" src="https://raw.githubusercontent.com/kubernetes-sigs/external-dns/master/docs/img/external-dns.png"></th>
