@@ -1,0 +1,15 @@
+- name: Give kubectl rights to Ansible user - Create directory
+  file:
+    path: .kube
+    state: directory
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: Give kubectl rights to Ansible user - Copy config files
+  copy:
+    remote_src: yes
+    src: /etc/kubernetes/admin.conf
+    dest: .kube/config
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
