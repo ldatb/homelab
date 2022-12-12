@@ -1,5 +1,5 @@
 appName: homepage
-namespace: cumulus
+namespace: lab-core
 
 image:
   name: ghcr.io/benphelps/homepage
@@ -9,8 +9,8 @@ volumes:
   config:
     pv: homepage-config-pv
     pvc: homepage-config-pvc
-    path: /home/cumulus/data/homepage/config
+    path: /home/labadm/data/homepage/config
   public:
     pv: homepage-public-pv
     pvc: homepage-public-pvc
-    path: /home/cumulus/data/homepage/public
+    path: /home/labadm/data/homepage/public

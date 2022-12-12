@@ -1,0 +1,38 @@
+- name: Create labadm user
+  user:
+   name: labadm
+   password: '!' # This is to disable the password
+   state: present
+   home: /home/labadm
+   shell: /bin/bash
+
+- name: Make sure that the .ssh folder exists
+  file:
+    path: /home/labadm/.ssh
+    state: directory
+  become: true
+  become_user: labadm
+
+- name: Copy labadm public key pair to the server
+  copy:
+    src: "{{ ssh_public_key_file }}"
+    dest: /home/labadm/.ssh/authorized_keys
+    owner: labadm
+    group: labadm
+    mode: '0600'
+
+- name: Copy data folder to labadm user home
+  copy:
+    src: "{{ playbook_dir }}/../data"
+    dest: /home/labadm
+    owner: labadm
+    group: labadm
+    mode: '0644'
+
+- name: Copy apps folder to labadm user home
+  copy:
+    src: "{{ playbook_dir }}/../apps"
+    dest: /home/labadm
+    owner: labadm
+    group: labadm
+    mode: '0644'

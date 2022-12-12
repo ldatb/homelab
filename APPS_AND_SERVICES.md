@@ -1,6 +1,6 @@
 # Applications and Services
 
-This is the comprehensive list of all Cumulus apps.
+This is the comprehensive list of all apps in this project.
 
 ## Applications
 

@@ -4,5 +4,5 @@
 - name: Configure firewall
   include_tasks: firewall.yml
 
-- name: Create Cumulus user
-  include_tasks: cumulus_user.yml
+- name: Create labadm user
+  include_tasks: labadm_user.yml

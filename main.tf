@@ -14,11 +14,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_instance" "cumulus-test" {
+resource "aws_instance" "lab-test" {
   ami = "ami-09a41e26df464c548"
   instance_type = "t2.large"
   key_name = "keypair-lucas-inspiron7572"
   tags = {
-    Name = "Cumulus-test"
+    Name = "lab-test"
   }
 }

@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox"
   config.vm.network "public_network"
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "cumulus_vm"
+    vb.name = "homelab_vm"
     vb.gui = true
     vb.cpus = 4
     vb.memory = 2048

@@ -1,6 +1,6 @@
 ---
-- name: Bootstrap Cumulus
-  hosts: cumulus
+- name: Bootstrap the homelab
+  hosts: homelab
   gather_facts: yes
   roles:
   - { role: dependencies, become: true }

@@ -1,8 +1,8 @@
 - name: Install Homepage
-  command: helm install homepage /home/cumulus/apps/homepage --values /home/cumulus/apps/homepage/values.yaml
+  command: helm install homepage /home/labadm/apps/homepage --values /home/labadm/apps/homepage/values.yaml
 
 - name: Install Glances
-  command: helm install glances /home/cumulus/apps/glances --values /home/cumulus/apps/glances/values.yaml
+  command: helm install glances /home/labadm/apps/glances --values /home/labadm/apps/glances/values.yaml
 
-- name: Install Cumulus Monitoring Stack
-  command: helm install cumulus-monitoring-stack /home/cumulus/apps/cumulus-monitoring-stack --values /home/cumulus/apps/cumulus-monitoring-stack/values.yaml
+- name: Install the Monitoring Stack
+  command: helm install monitoring-stack /home/labadm/apps/monitoring-stack --values /home/labadm/apps/monitoring-stack/values.yaml

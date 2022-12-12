@@ -1,4 +1,4 @@
-# Cumulus Homelab
+# Lucas' Homelab
 
 <div align="center">
 
@@ -12,10 +12,10 @@
     <img alt="Helm" width=30px src="https://seeklogo.com/images/H/helm-logo-9208DB3EE5-seeklogo.com.png">
 </div>
 
-<h2>Cumulus Homelab</h2>
+<h2>Lucas' Homelab</h2>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square&labelColor=000000)](#license)
-![Last Commit](https://img.shields.io/github/last-commit/ldatb/cumulus-homelab?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/ldatb/homelab?style=flat-square)
 
 </div>
 
@@ -81,7 +81,7 @@ ansible-playbook ./ansible/bootstrap.yml -i ./ansible/inventory
 
 **Update the group_vars/all.yml file before running the playbook**
 
-**WARNING:** A new user (named cumulus) will be created to hold the data files for all applications of this project. You need to specify the public key that will be assigned to this new user. This user will not have any special permissions or groups, neither will it have kubectl access.
+**WARNING:** A new user (named labadm) will be created to hold the data files for all applications of this project. You need to specify the public key that will be assigned to this new user. This user will not have any special permissions or groups, neither will it have kubectl access.
 
 To understand how to create an SSH key, [check this article](https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/) (you only need to create the key, the Ansible playbook will add it to the user).
 
