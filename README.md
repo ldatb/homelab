@@ -87,6 +87,14 @@ To understand how to create an SSH key, [check this article](https://www.cyberci
 
 Remember to edit the group_vars file to specify the full path the public key (Example: /home/your-user/.ssh/your-key.pub)
 
+## Test this project
+
+There are Terraform and Vagrant files on this project so you can test this project without having to use any real hardware.
+
+To use Terraform, you can simply do `terraform apply` to spawn the VMs on AWS, after configuring Terraform. To know how to do that, [check this tutorial](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/aws-build)
+
+For Vagrant, the process is similar, simply run `vagrant up --provider=virtualbox`. You'll need Virtual Box installed for this.
+
 ## Tech Stack
 
 <table>
