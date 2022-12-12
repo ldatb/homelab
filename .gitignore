@@ -20,3 +20,6 @@ Chart.lock
 
 # Node_modules
 **/node_modules/*
+
+# Vagrant
+.vagrant/
