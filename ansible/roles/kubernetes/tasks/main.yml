@@ -1,39 +1,10 @@
 - name: Disable swap
   command: swapoff -a
 
-- name: Allow br_netfilter module to load
-  template:
-    src: modules-k8s-conf.j2
-    dest: "/etc/modules-load.d/k8s.conf"
+- name: Install K8s
+  include_tasks: k8s.yml
+  when: kubernetes_distribution == "k8s" or kubernetes_distribution != "k3s" 
 
-- name: Install Kubernetes
-  include_tasks: install.yml
-
-- name: Create IPv4 and IPv6 configs for Kubernetes
-  template:
-    src: sysctl-k8s-conf.j2
-    dest: "/etc/sysctl.d/k8s.conf"
-
-- name: Apply sysctl params without reboot
-  command: sysctl --system
-
-- name: Create Cluster
-  command: kubeadm init --pod-network-cidr 10.244.0.0/16
-
-- name: Give kubectl rights to Ansible user
-  include_tasks: kubectl-rights.yml
-
-- name: Untaint nodes - Master
-  command: kubectl taint nodes --all node-role.kubernetes.io/master-
-  become: true
-  become_user: "{{ ansible_user }}"
-  ignore_errors: true
-
-- name: Untaint nodes - Not Ready
-  command: kubectl taint nodes --all node.kubernetes.io/not-ready:NoSchedule-
-  become: true
-  become_user: "{{ ansible_user }}"
-  ignore_errors: true
-
-- name: Wait for control-plane pods
-  include_tasks: control-plane-pods.yml
+- name: Install K3s
+  include_tasks: k3s.yml
+  when: kubernetes_distribution == "k3s"

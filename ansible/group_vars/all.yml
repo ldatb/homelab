@@ -4,8 +4,12 @@ ansible_ssh_private_key_file: full/path/to/private/key
 ssh_public_key_file: full/path/to/public/key
 
 architecture: amd64
-k8s_version: 1.21.5-00
 
+kubernetes_distribution: "k8s" # Possible values are: k8s or k3s. An invalid value will default to k8s.
+k3s_version:  v1.23.12+k3s1 # Only necessary if the kubernetes distribution is k3s
+k8s_version: 1.21.5-00 # Only necessary if the kubernetes distribution is k8s
+
+# Don't change these unless you want to disable an app
 ports:
   - 80    # http
   - 443   # https
