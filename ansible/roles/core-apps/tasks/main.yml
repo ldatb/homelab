@@ -1,12 +1,12 @@
-#- name: Install Homepage
-#  command: helm install homepage /home/cumulus/apps/homepage --values /home/cumulus/apps/homepage/values.yaml
-#
-#- name: Install Glances
-#  command: helm install glances /home/cumulus/apps/glances --values /home/cumulus/apps/glances/values.yaml
-#
-#- name: Add Prometheus Helm repo
-#  command: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-#
+- name: Install Homepage
+  command: helm install homepage /home/cumulus/apps/homepage --values /home/cumulus/apps/homepage/values.yaml
+
+- name: Install Glances
+  command: helm install glances /home/cumulus/apps/glances --values /home/cumulus/apps/glances/values.yaml
+
+- name: Add Prometheus Helm repo
+  command: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
 - name: Update Helm repos
   command: helm repo update
 

@@ -1,3 +1,5 @@
+# Cumulus Homelab
+
 <div align="center">
 
 <h1>
@@ -13,13 +15,16 @@
 <h2>Cumulus Homelab</h2>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square&labelColor=000000)](#license)
+![Last Commit](https://img.shields.io/github/last-commit/ldatb/cumulus-homelab?style=flat-square)
 
 </div>
 
-# Cumulus - Homelab
+## Introduction
+
 The project contains a set of helm charts and ansible playbooks used to setup (and manage) a personal homelab infrastructure. I don't use anything critical on it, only for learning, development and fun purposes.
 
-## Features
+### Features
+
 * [ ] Automated bare metal provisioning with PXE boot
 * [x] Automated Kubernetes installation and management
 * [x] Installing and management of applications with GitOps
@@ -30,7 +35,8 @@ The project contains a set of helm charts and ansible playbooks used to setup (a
 * [ ] Private container registry
 * [ ] CI/CD platform
 
-## Applications and services
+### Applications and services
+
 To install an application, use `helm install <app-name> <app-dir> --values <app-values>`.
 
 Before installing any application, I recommend having a look at the values.yaml file of it's Helm folder.
@@ -38,6 +44,7 @@ Before installing any application, I recommend having a look at the values.yaml 
 For a complete explanation of the applications, check [APPS_AND_SERVICES.md](APPS_AND_SERVICES.md)
 
 ### Hosted Applications
+
 * [ ] [NextCloud](https://github.com/nextcloud/server)
 * [ ] [Immich](https://github.com/immich-app/immich)
 * [ ] [Paperless-NGX](https://github.com/paperless-ngx/paperless-ngx)
@@ -49,6 +56,7 @@ For a complete explanation of the applications, check [APPS_AND_SERVICES.md](APP
 * [ ] [PrivateBin](https://privatebin.info/)
 
 ### Hosted Services
+
 * [x] [Homepage](https://github.com/benphelps/homepage)
 * [x] [Cockpit](https://github.com/cockpit-project/cockpit)
 * [x] [Glances](https://github.com/nicolargo/glances)
@@ -59,24 +67,28 @@ For a complete explanation of the applications, check [APPS_AND_SERVICES.md](APP
 * [ ] [Cert-manager](https://cert-manager.io/)
 * [ ] [Uptime Kuma](https://github.com/louislam/uptime-kuma)
 
-## Hardware:
+## Hardware
+
 For the moment, this is a simple single-node kubernetes cluster, so I recommend you have at least 8GB of RAM and 8 CPUs.
 Since (for the time being) this is a very simple project, there's no requirements for fancy equipment. The only thing I'd recommend is having a powerful internet connection, router and cables. Things can get wild...
 It is nice to have at least 512 GB of disk space.
 
 ## Setup
-```
+
+```BASH
 ansible-playbook ./ansible/bootstrap.yml -i ./ansible/inventory 
 ```
+
 **Update the group_vars/all.yml file before running the playbook**
 
 **WARNING:** A new user (named cumulus) will be created to hold the data files for all applications of this project. You need to specify the public key that will be assigned to this new user. This user will not have any special permissions or groups, neither will it have kubectl access.
 
-To understand how to create an SSH key, check https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/ (you only need to create the key, the Ansible playbook will add it to the user). 
+To understand how to create an SSH key, [check this article](https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/) (you only need to create the key, the Ansible playbook will add it to the user).
 
 Remember to edit the group_vars file to specify the full path the public key (Example: /home/your-user/.ssh/your-key.pub)
 
 ## Tech Stack
+
 <table>
     <tr>
         <th>Logo</th>
@@ -148,64 +160,73 @@ Remember to edit the group_vars file to specify the full path the public key (Ex
 </table>
 
 ## Roadmap
+
 **STATUS: Alpha**
 
+This project is still in the experimental stage, and I don't use anything critical on it. Expect breaking changes that may require a complete redeployment.
+
 ### Released
-- Automated controller set up (QEMU/KVM, Docker, Kubernetes)
+
+* Automated controller set up (QEMU/KVM, Docker, Kubernetes)
 
 ### Planned for next release
-- Automated minimal setup (k3s or microk8s)
-- Automated cluster creation
-- Automated application deployment
-- Automated DNS management
-- Observability
-  - Applications monitoring
-  - System monitoring
-  - CRON jobs monitoring
-  - Logging
-  - Alerting
-- Core applications
-  - TrueNAS Core
-  - Homepage
-  - Cockpit
-  - Uptime Kuma
+
+* Automated minimal setup (k3s or microk8s)
+* Automated cluster creation
+* Automated application deployment
+* Automated DNS management
+* Observability
+  * Applications monitoring
+  * System monitoring
+  * CRON jobs monitoring
+  * Logging
+  * Alerting
+* Core applications
+  * TrueNAS Core
+  * Homepage
+  * Cockpit
+  * Uptime Kuma
 
 ### Planned for future releases
-- Automated bare metal provisioning (PXE Boot)
-- Automated certificate management
-- Private container registry
-- Expose services to the internet with CloudFlare and Route 53
-- Single command to deploy all apps
-- Applications
-  - NextCloud
-  - Immich
-  - Paperless-NGX
-  - BitWarden
-  - Kopia
-  - Jenkins
-  - Gitea
-  - PrivateBin
+
+* Automated bare metal provisioning (PXE Boot)
+* Automated certificate management
+* Private container registry
+* Expose services to the internet with CloudFlare and Route 53
+* Single command to deploy all apps
+* Applications
+  * NextCloud
+  * Immich
+  * Paperless-NGX
+  * BitWarden
+  * Kopia
+  * Jenkins
+  * Gitea
+  * PrivateBin
 
 ### Unplanned
-- Serverless
-- Multi-node K8s cluster
-- Cluster API
-- Migrate to StarlingX
-- RAID
+
+* Serverless
+* Multi-node K8s cluster
+* Cluster API
+* Migrate to StarlingX
+* RAID
 
 ## Contributing
+
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
+
 Copyright &copy; 2022 Lucas de Ataides
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-# References
+## References
+
 * [Khue's Homelab](https://github.com/khuedoan/homelab)
 * [Self Hosting Guide](https://github.com/mikeroyal/Self-Hosting-Guide)
 * [Lento's Homelab](https://github.com/lento234/homelab)
 * [Ansible for DevOps Examples](https://github.com/geerlingguy/ansible-for-devops)
 * [Ansible NAS](https://github.com/davestephens/ansible-nas)
 * [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
-
